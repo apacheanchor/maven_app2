@@ -14,13 +14,13 @@ pipeline {
     }
     stage('Push Artifact to S3') {
       steps {
-        sh 'aws s3 cp webapp/target/webapp.war s3://demophanis3us'
+        sh 'aws s3 cp webapp/target/webapp.war s3://gitartifactpush'
       }
     }
     stage('Deploy to tomcat') {
       steps {
         sshagent(['tomcat-server-details']) {
-        sh 'scp -o "StrictHostKeyChecking=no" webapp/target/webapp.war ubuntu@54.219.35.228:/opt/tomcat/webapps'
+        sh 'scp -o "StrictHostKeyChecking=no" webapp/target/webapp.war ubuntu@18.144.15.54:/opt/tomcat/webapps'
         }
       }
     }
